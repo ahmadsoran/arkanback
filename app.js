@@ -51,7 +51,9 @@ async function startServer() {
 
     app.use(cors({
         origin: ['https://arkan-font-dash.vercel.app'],
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
+
     }))
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
