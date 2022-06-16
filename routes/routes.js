@@ -38,7 +38,5 @@ Route.get('/visitors', Visitors.Visitors)
 Route.get('/getVisitors', Visitors.getVisitors)
 Route.post('/reportBug', report.ReportBug)
 Route.get('/getReportBugs', isAuth, report.getReportBugs)
-Route.get('/', (req, res) => {
-    res.send("Hello World")
-})
+
 export default Route; 

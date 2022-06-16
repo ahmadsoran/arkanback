@@ -7,11 +7,17 @@ import winston from 'winston'
 import cloudinary from 'cloudinary'
 import "winston-mongodb";
 
-async function startServer() {
-    dotenv.config('dotenv')
+const ENV = process.env
+const app = express()
+dotenv.config('dotenv')
+app.get('/', (req, res) => {
+    res.send("Hello World")
+})
+app.use(cors())
+startServer();
 
-    const ENV = process.env
-    const app = express()
+async function startServer() {
+
     mongoose.Promise = global.Promise;
 
 
@@ -49,7 +55,6 @@ async function startServer() {
     );
 
 
-    app.use(cors())
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(Route)
@@ -62,4 +67,3 @@ async function startServer() {
         console.log(`server online in port:` + ENV.PORT)
     })
 }
-startServer();
