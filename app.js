@@ -11,42 +11,41 @@ const ENV = process.env
 const app = express()
 dotenv.config('dotenv')
 
-
-mongoose.Promise = global.Promise;
-
-
 // ENV.DB_URL
 // ENV.TESTDB
 // const DBURL = ENV.TESTDB
 const DBURL = ENV.DB_URL
-// Connect MongoDB at default port 27017. 
-mongoose.connect(DBURL, {
-    useNewUrlParser: true,
-}, (err) => {
-    if (!err) {
-        console.log('MongoDB Connection Succeeded.' + DBURL)
-    } else {
-        console.log('Error in DB connection: ' + err)
-    }
-});
 
-winston.add(
-    new winston.transports.MongoDB({
-        level: "info",
-        db: DBURL,
-        options: { useUnifiedTopology: true },
-        name: "mongodb-logger",
-        collection: "logs",
-        label: "mongodb-logger",
-    })
-);
-winston.add(
-    new winston.transports.MongoDB({
-        level: "error",
-        db: DBURL,
-        options: { useUnifiedTopology: true },
-    })
-);
+try {
+    await mongoose.connect(DBURL, {
+        useNewUrlParser: true,
+    }, (err) => {
+        if (!err) {
+            console.log('MongoDB Connection Succeeded.' + DBURL)
+        } else {
+            console.log('Error in DB connection: ' + err)
+        }
+    });
+    winston.add(
+        new winston.transports.MongoDB({
+            level: "info",
+            db: DBURL,
+            options: { useUnifiedTopology: true },
+            name: "mongodb-logger",
+            collection: "logs",
+            label: "mongodb-logger",
+        })
+    );
+    winston.add(
+        new winston.transports.MongoDB({
+            level: "error",
+            db: DBURL,
+            options: { useUnifiedTopology: true },
+        })
+    );
+} catch (error) {
+    console.log(error)
+}
 app.use(cors({
     origin: ['http://localhost:3000', 'https://arkan-font-dash.vercel.app'],
     credentials: true
@@ -64,4 +63,5 @@ cloudinary.config({
 app.listen(ENV.PORT, () => {
     console.log(`server online in port:` + ENV.PORT)
 })
+
 
