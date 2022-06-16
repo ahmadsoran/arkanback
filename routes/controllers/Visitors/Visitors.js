@@ -34,6 +34,7 @@ const Visitors = async (req, res) => {
 const getVisitors = async (req, res) => {
     try {
         const visitors = await VisitsSchema.find({});
+
         return res.status(200).json(visitors);
     } catch (error) {
         console.error(error)

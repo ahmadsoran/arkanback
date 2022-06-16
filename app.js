@@ -50,7 +50,9 @@ async function startServer() {
 
 
     app.use(cors({
-        origin: ['http://localhost:3000'],
+        origin: [
+            'http://localhost:3000',
+            'https://arkanback.vercel.app/'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Content-Length', 'Accept-Encoding', 'X-CSRF-Token'],
         credentials: true,
