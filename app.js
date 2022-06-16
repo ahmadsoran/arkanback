@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     res.send("Hello World")
 })
 app.use(cors({
-    origin: '*',
+    origin: ['http://localhost:3000', 'https://arkan-font-dash.vercel.app'],
     credentials: true
 }))
 startServer();
