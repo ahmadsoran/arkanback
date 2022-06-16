@@ -6,7 +6,7 @@ import User from "../../../model/UserSchema.js";
 import fs from "fs";
 const UploadFont = async (req, res) => {
     const userId = req.headers.authorization;
-    const { name, testText } = req.body;
+    const { KUname, ENname, testText } = req.body;
     if (!req.files[0]) {
         console.log('no file');
         return res.status(400).json({ error: "no file attached" })
@@ -64,7 +64,7 @@ const UploadFont = async (req, res) => {
                         const zipUrl = cloudinary.v2.utils.download_folder(`fonts/${regularFontFile.split('.').shift()}`, {
                             use_original_filename: true,
                             overwrite: false,
-                            target_public_id: name,
+                            target_public_id: ENname,
                         });
                         console.log(zipUrl);
                         if (decodedUsr.role !== 'dev') {
@@ -76,8 +76,12 @@ const UploadFont = async (req, res) => {
                             }
                         }
 
+
                         const fontsData = new fontsDatas({
-                            name,
+                            name: {
+                                kurdish: KUname,
+                                english: ENname,
+                            },
                             testText,
                             regular: regularFontsFile.url,
                             styles: stylesFontFiles,

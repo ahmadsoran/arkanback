@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 const fontsData = new Schema({
-    name: String,
+    name: {
+        kurdish: String,
+        english: String,
+    },
     styles: [
         {
             name: String,
