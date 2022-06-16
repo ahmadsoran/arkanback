@@ -13,7 +13,10 @@ dotenv.config('dotenv')
 app.get('/', (req, res) => {
     res.send("Hello World")
 })
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    credentials: true
+}))
 startServer();
 
 async function startServer() {
