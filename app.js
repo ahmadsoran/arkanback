@@ -17,8 +17,8 @@ async function startServer() {
 
     // ENV.DB_URL
     // ENV.TESTDB
-    const DBURL = ENV.TESTDB
-    // const DBURL = ENV.DB_URL
+    // const DBURL = ENV.TESTDB
+    const DBURL = ENV.DB_URL
     // Connect MongoDB at default port 27017. 
     mongoose.connect(DBURL, {
         useNewUrlParser: true,
