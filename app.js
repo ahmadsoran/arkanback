@@ -7,51 +7,55 @@ import winston from 'winston'
 import cloudinary from 'cloudinary'
 import "winston-mongodb";
 
+
+dotenv.config('dotenv')
+
 const ENV = process.env
 const app = express()
-dotenv.config('dotenv')
+
 
 // ENV.DB_URL
 // ENV.TESTDB
 // const DBURL = ENV.TESTDB
-const DBURL = ENV.DB_URL
+// const DBURL = ENV.DB_URL
+// Connect MongoDB at default port 27017. 
+mongoose.connect(ENV.DB_URL, {
+    useNewUrlParser: true,
+}, (err) => {
+    if (!err) {
+        console.log('MongoDB Connection Succeeded.' + ENV.DB_URL)
+    } else {
+        console.log('Error in DB connection: ' + err)
+    }
+});
 
-try {
-    await mongoose.connect(DBURL, {
-        useNewUrlParser: true,
-    }, (err) => {
-        if (!err) {
-            console.log('MongoDB Connection Succeeded.' + DBURL)
-        } else {
-            console.log('Error in DB connection: ' + err)
-        }
-    });
-    winston.add(
-        new winston.transports.MongoDB({
-            level: "info",
-            db: DBURL,
-            options: { useUnifiedTopology: true },
-            name: "mongodb-logger",
-            collection: "logs",
-            label: "mongodb-logger",
-        })
-    );
-    winston.add(
-        new winston.transports.MongoDB({
-            level: "error",
-            db: DBURL,
-            options: { useUnifiedTopology: true },
-        })
-    );
-} catch (error) {
-    console.log(error)
-}
+// winston.add(
+//     new winston.transports.MongoDB({
+//         level: "info",
+//         db: ENV.DB_URL,
+//         options: { useUnifiedTopology: true },
+//         name: "mongodb-logger",
+//         collection: "logs",
+//         label: "mongodb-logger",
+//     })
+// );
+// winston.add(
+//     new winston.transports.MongoDB({
+//         level: "error",
+//         db: ENV.DB_URL,
+//         options: { useUnifiedTopology: true },
+//     })
+// );
+
+
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://arkan-font-dash.vercel.app'],
-    credentials: true
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Content-Length', 'Accept-Encoding', 'X-CSRF-Token'],
+    credentials: true,
+    preflightContinue: false
+
 }))
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(Route)
@@ -63,5 +67,4 @@ cloudinary.config({
 app.listen(ENV.PORT, () => {
     console.log(`server online in port:` + ENV.PORT)
 })
-
 
