@@ -34,10 +34,12 @@ const UploadFont = async (req, res) => {
 
                     const uploader = async (path, filename) => await cloudinary.v2.uploader.upload(path, {
                         resource_type: 'raw',
-                        folder: `fonts/${regularFontFile.split('.').shift()}`,
+                        folder: `fonts/${ENname}|${KUname}`,
                         public_id: filename,
-                        unique_filename: false,
                         overwrite: false,
+                        use_filename: true,
+
+
 
                     });
 
@@ -60,13 +62,7 @@ const UploadFont = async (req, res) => {
                         const compressAllFileSizes = urls.map(file => file.size).reduce((acc, curr) => acc + curr)
                         const turnFileSizeToMB = (compressAllFileSizes / 1024 / 1024).toFixed(2)
 
-                        /// cloudinary download zip url and save it to database
-                        const zipUrl = cloudinary.v2.utils.download_folder(`fonts/${regularFontFile.split('.').shift()}`, {
-                            use_original_filename: true,
-                            overwrite: false,
-                            target_public_id: ENname,
-                        });
-                        console.log(zipUrl);
+
                         if (decodedUsr.role !== 'dev') {
                             var uploadby = {
                                 username: decodedUsr.username,
@@ -81,13 +77,13 @@ const UploadFont = async (req, res) => {
                             name: {
                                 kurdish: KUname,
                                 english: ENname,
+                                filename: regularFontFile.split('.').shift()
                             },
                             testText,
                             regular: regularFontsFile.url,
                             styles: stylesFontFiles,
                             uploader: uploadby,
                             fileSize: `${turnFileSizeToMB} MB`,
-                            zipPath: zipUrl,
 
 
                         })
