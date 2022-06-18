@@ -32,22 +32,22 @@ const UploadFont = async (req, res) => {
 
 
 
-                    const uploader = async (path, filename) => await cloudinary.v2.uploader.upload(path, {
+                    const uploader = async (path, name) => await cloudinary.v2.uploader.upload(path, {
                         resource_type: 'raw',
                         folder: `fonts/${ENname}|${KUname}`,
-                        public_id: filename,
-                        overwrite: false,
+                        overwrite: true,
                         use_filename: true,
-
-
-
+                        public_id: name,
                     });
 
                     if (req.method === 'POST') {
                         const urls = []
                         for (const file of files) {
                             const { path, originalname } = file;
-                            const newPath = await uploader(path, originalname);
+                            /// remove numbers and special characters from file name
+                            const fileName = originalname.replace(/[^a-zA-Z-.]/g, '')
+                            const newPath = await uploader(path, fileName);
+                            /// remove spically characters from file name
                             urls.push({
                                 name: originalname.split('.').shift(),
                                 url: newPath.secure_url,

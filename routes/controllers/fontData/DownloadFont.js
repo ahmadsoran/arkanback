@@ -21,7 +21,6 @@ const DownloadFont = async (req, res) => {
                 url: style.url
             }
         })
-        winston.info(`font with name ${fontData?.name.kurdish} downloaded`);
         return res.status(200).json({
             regular: fontData?.regular,
             styles: stylesFonts,
