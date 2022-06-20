@@ -15,7 +15,7 @@ const fontsData = new Schema({
     regular: String,
     testText: {
         type: String,
-        default: 'لە ژیانماندا ماری زۆر ھەن لە شێوەی مرۆڤ خودایە بمانپارێزە لە خراپی ژەھریان '
+        default: 'لەژیانماندا ماری زۆر هەن لە شێوەی مرۆڤ خودایا بمان پارێزە لە خراپی ژەهریان'
     },
     uploadDate: {
         type: Date,

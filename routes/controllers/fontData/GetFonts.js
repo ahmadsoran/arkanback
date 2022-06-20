@@ -5,15 +5,27 @@ const GetFonts = async (req, res) => {
     const { sort } = req.query
     console.log(sort)
     try {
+        var fonts = await fontsDatas.find()
+
         if (sort === 'new') {
-            var fonts = await fontsDatas.find()
             fonts.reverse()
 
         } else if (sort === 'old') {
-            var fonts = (await fontsDatas.find())
         } else if (sort === 'popular') {
-            var fonts = await fontsDatas.find()
             fonts.sort((a, b) => b.DownloadedTimes - a.DownloadedTimes)
+        } else if (sort === 'A_Z') {
+            fonts.sort((a, b) => {
+                return a.name.english.localeCompare(b.name.english)
+            })
+
+        } else if (sort === 'Z_A') {
+            fonts.sort((a, b) => {
+                if (a.name.english > b.name.english) {
+                    return -1
+                }
+
+            })
+
         } else {
             var fonts = await fontsDatas.find()
         }
