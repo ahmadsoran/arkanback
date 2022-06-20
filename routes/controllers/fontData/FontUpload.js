@@ -6,14 +6,14 @@ import User from "../../../model/UserSchema.js";
 import fs from "fs";
 const UploadFont = async (req, res) => {
     const userId = req.headers.authorization;
-    const { KUname, ENname, testText } = req.body;
+    const { KUname, ENname, testText, category } = req.body;
     if (!req.files[0]) {
         console.log('no file');
         return res.status(400).json({ error: "no file attached" })
     }
     const files = req.files;
     // fileName.split('.').shift();
-
+    console.log(category)
 
     try {
         jwt.verify(userId, process.env.PRV_KEY, (err, decoded) => {
@@ -71,7 +71,10 @@ const UploadFont = async (req, res) => {
                                 id: decodedUsr._id,
                             }
                         }
-
+                        const categoryies = []
+                        category?.forEach(cat => {
+                            categoryies.push(cat)
+                        })
 
                         const fontsData = new fontsDatas({
                             name: {
@@ -84,6 +87,7 @@ const UploadFont = async (req, res) => {
                             styles: stylesFontFiles,
                             uploader: uploadby,
                             fileSize: `${turnFileSizeToMB} MB`,
+                            category: categoryies
 
 
                         })
