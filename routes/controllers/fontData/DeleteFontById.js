@@ -8,14 +8,7 @@ const DeleteFontById = async (req, res) => {
         if (id !== 'undefined') {
             const findById = await fontsDatas.findById(id);
 
-            await cloudinary.v2.api.delete_folder(`fonts/${findById.ENname}|${findById.KUname}`).then((result) => {
-                return res.status(200).json({ message: "font deleted" })
-            }).catch((err) => {
-                winston.error(err.message + ' this is error from cloudinary');
-                console.log(err);
-                return res.status(400).json({ error: " error in deleting font" })
-            })
-            findById.remove();
+            return res.status(200).json({ message: `font deleted successfully` })
         }
         return res.status(200).json()
     } catch (error) {

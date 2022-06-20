@@ -71,10 +71,17 @@ const UploadFont = async (req, res) => {
                                 id: decodedUsr._id,
                             }
                         }
+                        console.log(category)
                         const categoryies = []
-                        category?.forEach(cat => {
-                            categoryies.push(cat)
-                        })
+                        // if not array then make it array
+                        if (!Array.isArray(category)) {
+                            categoryies.push(category)
+                        }
+                        else {
+                            category?.map(cat => {
+                                categoryies.push(cat)
+                            })
+                        }
 
                         const fontsData = new fontsDatas({
                             name: {
