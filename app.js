@@ -50,7 +50,7 @@ async function startServer() {
 
 
     app.use(cors({
-        origin: ['https://arkanfonts.vercel.app', 'https://arkan-font-dash.vercel.app', 'http://localhost:3001'],
+        origin: ['https://arkanfonts.vercel.app', 'https://arkan-font-dash.vercel.app', 'http://localhost:3001', 'http://localhost:3000'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Content-Length', 'Accept-Encoding', 'X-CSRF-Token'],
         credentials: true,

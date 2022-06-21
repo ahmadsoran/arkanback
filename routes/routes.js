@@ -10,6 +10,7 @@ import GetFonts from "./controllers/fontData/GetFonts.js";
 import DeleteFontById from "./controllers/fontData/DeleteFontById.js";
 import Visitors from "./controllers/Visitors/Visitors.js";
 import report from "./controllers/Bug/ReportBug.js";
+import Editfonts from "./controllers/fontData/Editfonts.js";
 
 
 const Route = Router();
@@ -33,5 +34,6 @@ Route.get('/visitors', Visitors.Visitors)
 Route.get('/getVisitors', Visitors.getVisitors)
 Route.post('/reportBug', report.ReportBug)
 Route.get('/getReportBugs', isAuth, report.getReportBugs)
+Route.post('/updateFont', isAuth, AdminPermission.isAdminOnly, Editfonts)
 
 export default Route; 
