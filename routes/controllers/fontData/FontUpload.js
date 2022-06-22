@@ -13,7 +13,7 @@ const UploadFont = async (req, res) => {
     }
     const files = req.files;
     // fileName.split('.').shift();
-    console.log(category)
+    console.log(files)
 
     try {
         jwt.verify(userId, process.env.PRV_KEY, (err, decoded) => {
@@ -114,7 +114,7 @@ const UploadFont = async (req, res) => {
                     return res.status(400).json({ error: "you are not allowed to upload font" })
                 }
             }).catch(err => {
-                winston.error(err.message + 'this error happen while uploading a font');
+                winston.error(err.message + ' this error happen while uploading a font');
                 return res.status(400).json({ error: err.message })
             })
         })

@@ -1,12 +1,11 @@
 import winston from "winston";
 import fontsDatas from "../../../model/Downloads.js";
-import cloudinary from "cloudinary";
 const DeleteFontById = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.query;
 
     try {
         if (id !== 'undefined') {
-            const findById = await fontsDatas.findByIdAndDelete(id);
+            await fontsDatas.findByIdAndDelete(id);
             return res.status(200).json({ message: `font deleted successfully` })
         }
         return res.status(200).json()
