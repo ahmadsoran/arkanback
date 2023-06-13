@@ -35,7 +35,7 @@ Route.get('/getVisitors', Visitors.getVisitors)
 Route.post('/reportBug', report.ReportBug)
 Route.get('/getReportBugs', isAuth, report.getReportBugs)
 Route.post('/updateFont', isAuth, AdminPermission.isAdminOnly, Editfonts)
-Route.get('/getVisitors', (req,res) => {
+Route.get('/', (req,res) => {
 return res.json("hello"}
 })
 export default Route; 
